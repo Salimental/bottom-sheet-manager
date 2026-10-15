@@ -25,6 +25,14 @@
   ],
   "author": "Salimental",
   "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://bottom-sheet-manager-docs.salimental.ir",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Salimental/bottom-sheet-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Salimental/bottom-sheet-manager/issues"
+  },
   "devDependencies": {
     "vitepress": "^1.0.0",
     "vue": "^3.3.0"
