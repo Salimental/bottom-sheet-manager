@@ -1,9 +1,16 @@
 {
   "name": "bottom-sheet-manager",
   "version": "1.0.0",
-  "main": "BottomSheetManager.js",
-  "types": "index.d.ts",
+  "main": "./dist/bottom-sheet-manager.min.js",
+  "types": "./index.d.ts",
   "type": "module",
+  "style": "./dist/bottom-sheet-manager.min.css",
+  "files": [
+    "dist",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
