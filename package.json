@@ -1,0 +1,25 @@
+{
+  "name": "bottom-sheet-manager",
+  "version": "1.0.0",
+  "main": "BottomSheetManager.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress preview docs"
+  },
+  "keywords": [
+    "bottom-sheet",
+    "modal",
+    "vanilla-js",
+    "scrollbar",
+    "ui-component"
+  ],
+  "author": "Salimental",
+  "license": "SEE LICENSE IN LICENSE",
+  "devDependencies": {
+    "vitepress": "^1.0.0",
+    "vue": "^3.3.0"
+  }
+}
