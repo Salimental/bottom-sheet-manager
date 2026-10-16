@@ -11,11 +11,10 @@ A lightweight, zero-dependency Vanilla JavaScript library for creating customiza
 - **TypeScript Support:** Includes TypeScript declarations for IDE autocomplete and type checking.
 - **Flexible Integration:** Designed for integration into modern JavaScript projects and browser-based applications.
 
-## Documentation
+## Demo & Documentation
 
-For installation instructions, usage examples, API reference, configuration options, and demos, visit the official documentation:
-
-**[BottomSheetManager Documentation](https://bottom-sheet-manager-docs.salimental.ir)**
+- **Interactive Demo:** [View Live Demo](https://bottom-sheet-manager.salimental.ir/demo/)
+- **Documentation:** [BottomSheetManager Documentation](https://bottom-sheet-manager.salimental.ir/docs)
 
 ## License
 
@@ -29,4 +28,4 @@ Modification and redistribution are restricted. Please review the full license b
 
 - Website: https://salimental.ir
 - GitHub: https://github.com/Salimental
-- Documentation: https://bottom-sheet-manager-docs.salimental.ir
+- Documentation: https://bottom-sheet-manager.salimental.ir/docs
