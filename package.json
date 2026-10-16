@@ -2,6 +2,7 @@
   "name": "bottom-sheet-manager",
   "version": "1.0.0",
   "main": "./dist/bottom-sheet-manager.min.js",
+  "module": "./dist/bottom-sheet-manager.esm.min.js",
   "types": "./index.d.ts",
   "type": "module",
   "style": "./dist/bottom-sheet-manager.min.css",
