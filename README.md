@@ -18,7 +18,7 @@ A lightweight, zero-dependency Vanilla JavaScript library for creating customiza
 
 ## License
 
-This project is distributed under a custom license. Free personal and commercial use is permitted subject to the terms in [LICENSE](./LICENSE.txt).
+This project is distributed under a custom license. Free personal and commercial use is permitted subject to the terms in [LICENSE](./LICENSE).
 
 Modification and redistribution are restricted. Please review the full license before using this software.
 
@@ -52,7 +52,7 @@ Modification and redistribution are restricted. Please review the full license b
 
 ## مجوز
 
-این پروژه تحت یک مجوز سفارشی توزیع می‌شود. استفاده شخصی و تجاری رایگان با رعایت شرایط مندرج در فایل [LICENSE](./LICENSE.txt) مجاز است.
+این پروژه تحت یک مجوز سفارشی توزیع می‌شود. استفاده شخصی و تجاری رایگان با رعایت شرایط مندرج در فایل [LICENSE](./LICENSE) مجاز است.
 هرگونه تغییر و بازتوزیع محدود شده است. لطفاً پیش از استفاده از نرم‌افزار، متن کامل مجوز را بررسی کنید.
 
 ## نویسنده
