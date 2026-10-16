@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دموی جامع BottomSheetManager</title>
+
+    <!-- فونت وزیرمتن از گوگل فونت -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- اتصال فایل CSS کتابخانه -->
+    <link rel="stylesheet" href="bottom-sheet-manager.min.css">
+
+    <style>
+        /* اعمال فونت وزیر به کل صفحه و عناصر باتم‌شیت */
+        body, button, input, textarea, h1, h2, h3, p {
+            font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif !important;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #111;
+        }
+        p.desc {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        button.demo-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        .bottom-sheet .content {
+            padding: 20px;
+        }
+        button.demo-btn:hover {
+            background: #1d4ed8;
+        }
+        button.demo-btn:active {
+            transform: scale(0.98);
+        }
+        .demo-content-box {
+            line-height: 1.8;
+        }
+        .demo-content-box p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>دموی قابلیت‌های BottomSheetManager</h1>
+    <p class="desc">برای تست هر حالت، روی دکمه‌ی مربوطه کلیک کنید:</p>
+
+    <div class="grid">
+        <button class="demo-btn" id="btn-auto">ارتفاع خودکار (Auto Height)</button>
+        <button class="demo-btn" id="btn-fixed">ارتفاع ثابت (400px)</button>
+        <button class="demo-btn" id="btn-snap">دارای Snap Points</button>
+        <button class="demo-btn" id="btn-expanded">شروع در حالت Max</button>
+        <button class="demo-btn" id="btn-scroll">محتوای طولانی (Scrollable)</button>
+        <button class="demo-btn" id="btn-nested">باتم‌شیت تودرتو</button>
+    </div>
+</div>
+
+<!-- اتصال اسکریپت اصلی -->
+<script src="bottom-sheet-manager.min.js"></script>
+<script>
+    const bsManager = new BottomSheetManager({
+        mouseDrag: true,
+        touchDrag: true,
+        contentDraggable: true
+    });
+
+    document.getElementById('btn-auto').addEventListener('click', () => {
+        bsManager.open({
+            title: 'باتم‌شیت ارتفاع خودکار',
+            content: '<div class="demo-content-box"><p>این یک باتم‌شیت با ارتفاع متناسب با محتوای داخل آن است. حاشیه ۲۰ پیکسلی از لبه‌ها رعایت شده است.</p></div>'
+        });
+    });
+
+    document.getElementById('btn-fixed').addEventListener('click', () => {
+        bsManager.open({
+            title: 'باتم‌شیت ارتفاع ثابت',
+            height: '400px',
+            content: '<div class="demo-content-box"><p>ارتفاع این باکس دقیقاً روی ۴۰۰ پیکسل قفل شده است.</p></div>'
+        });
+    });
+
+    document.getElementById('btn-snap').addEventListener('click', () => {
+        bsManager.open({
+            title: 'اسنپ‌پوینت‌دار',
+            height: '350px',
+            snapOnDrag: true,
+            content: '<div class="demo-content-box"><p>این باتم‌شیت دارای دو نقطه ایست است و قابلیت کشیدن به بالا و پایین را دارد.</p></div>'
+        });
+    });
+
+    document.getElementById('btn-expanded').addEventListener('click', () => {
+        bsManager.open({
+            title: 'شروع در حالت حداکثر',
+            height: '350px',
+            snapOnDrag: true,
+            startExpanded: true,
+            content: '<div class="demo-content-box"><p>این نمونه به محض باز شدن مستقیماً به حالت ارتفاع حداکثر می‌رود.</p></div>'
+        });
+    });
+
+    document.getElementById('btn-scroll').addEventListener('click', () => {
+        let longHtml = '<div class="demo-content-box">';
+        for(let i = 1; i <= 15; i++) {
+            longHtml += `<p>پاراگراف شماره ${i}: تست اسکرول محتوا درون باتم‌شیت با فاصله ۲۰ پیکسلی تمیز.</p>`;
+        }
+        longHtml += '</div>';
+
+        bsManager.open({
+            title: 'محتوای اسکرولی',
+            height: '450px',
+            snapOnDrag: true,
+            content: longHtml
+        });
+    });
+
+    document.getElementById('btn-nested').addEventListener('click', () => {
+        bsManager.open({
+            title: 'باتم‌شیت اول (پدر)',
+            height: '400px',
+            content: `<div class="demo-content-box">
+                    <p>روی دکمه زیر کلیک کنید تا یک باتم‌شیت جدید روی این صفحه باز شود:</p>
+                    <button class="demo-btn" id="btn-open-child" style="margin-top:10px;">باز کردن فرزند</button>
+                </div>`
+        });
+
+        setTimeout(() => {
+            const childBtn = document.getElementById('btn-open-child');
+            if(childBtn) {
+                childBtn.addEventListener('click', () => {
+                    bsManager.open({
+                        title: 'باتم‌شیت دوم (فرزند)',
+                        height: '300px',
+                        content: '<div class="demo-content-box"><p>این لایه دوم است که روی لایه قبلی سوار شده.</p></div>'
+                    });
+                });
+            }
+        }, 100);
+    });
+</script>
+</body>
+</html>
