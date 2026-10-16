@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BottomSheetManager Comprehensive Demo</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Library CSS -->
+    <link rel="stylesheet" href="bottom-sheet-manager.min.css">
+
+    <style>
+        body, button, input, textarea, h1, h2, h3, p {
+            font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif !important;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #111;
+        }
+        p.desc {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        button.demo-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        .bottom-sheet .content {
+            padding: 20px;
+        }
+        button.demo-btn:hover {
+            background: #1d4ed8;
+        }
+        button.demo-btn:active {
+            transform: scale(0.98);
+        }
+        .demo-content-box {
+            line-height: 1.8;
+        }
+        .demo-content-box p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>BottomSheetManager Demo</h1>
+    <p class="desc">Click any button below to test different features and configurations:</p>
+
+    <div class="grid">
+        <button class="demo-btn" id="btn-auto">Auto Height</button>
+        <button class="demo-btn" id="btn-fixed">Fixed Height (400px)</button>
+        <button class="demo-btn" id="btn-snap">Snap Points</button>
+        <button class="demo-btn" id="btn-expanded">Start Expanded (Max)</button>
+        <button class="demo-btn" id="btn-scroll">Long Content (Scrollable)</button>
+        <button class="demo-btn" id="btn-nested">Nested Bottom Sheets</button>
+    </div>
+</div>
+
+<!-- Main Script -->
+<script src="bottom-sheet-manager.min.js"></script>
+<script>
+    const bsManager = new BottomSheetManager({
+        mouseDrag: true,
+        touchDrag: true,
+        contentDraggable: true
+    });
+
+    document.getElementById('btn-auto').addEventListener('click', () => {
+        bsManager.open({
+            title: 'Auto Height Bottom Sheet',
+            content: '<div class="demo-content-box"><p>This bottom sheet adapts its height automatically to its content size. The 20px padding is neatly applied.</p></div>'
+        });
+    });
+
+    document.getElementById('btn-fixed').addEventListener('click', () => {
+        bsManager.open({
+            title: 'Fixed Height Bottom Sheet',
+            height: '400px',
+            content: '<div class="demo-content-box"><p>This bottom sheet has its height strictly locked to 400 pixels.</p></div>'
+        });
+    });
+
+    document.getElementById('btn-snap').addEventListener('click', () => {
+        bsManager.open({
+            title: 'Snap Points Enabled',
+            height: '350px',
+            snapOnDrag: true,
+            content: '<div class="demo-content-box"><p>This bottom sheet features two snap points and can be dragged up or down smoothly.</p></div>'
+        });
+    });
+
+    document.getElementById('btn-expanded').addEventListener('click', () => {
+        bsManager.open({
+            title: 'Start Expanded Mode',
+            height: '350px',
+            snapOnDrag: true,
+            startExpanded: true,
+            content: '<div class="demo-content-box"><p>This modal opens up directly in its maximum height state.</p></div>'
+        });
+    });
+
+    document.getElementById('btn-scroll').addEventListener('click', () => {
+        let longHtml = '<div class="demo-content-box">';
+        for(let i = 1; i <= 15; i++) {
+            longHtml += `<p>Paragraph number ${i}: Testing scrollable content inside the bottom sheet with clean padding.</p>`;
+        }
+        longHtml += '</div>';
+
+        bsManager.open({
+            title: 'Scrollable Content',
+            height: '450px',
+            snapOnDrag: true,
+            content: longHtml
+        });
+    });
+
+    document.getElementById('btn-nested').addEventListener('click', () => {
+        bsManager.open({
+            title: 'Parent Bottom Sheet',
+            height: '400px',
+            content: `<div class="demo-content-box">
+                    <p>Click the button below to open a nested child bottom sheet on top of this one:</p>
+                    <button class="demo-btn" id="btn-open-child" style="margin-top:10px;">Open Child</button>
+                </div>`
+        });
+
+        setTimeout(() => {
+            const childBtn = document.getElementById('btn-open-child');
+            if(childBtn) {
+                childBtn.addEventListener('click', () => {
+                    bsManager.open({
+                        title: 'Child Bottom Sheet',
+                        height: '300px',
+                        content: '<div class="demo-content-box"><p>This is the second layer stacked smoothly over the previous sheet.</p></div>'
+                    });
+                });
+            }
+        }, 100);
+    });
+</script>
+</body>
+</html>
