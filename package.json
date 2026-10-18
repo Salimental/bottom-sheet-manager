@@ -29,7 +29,7 @@
   "homepage": "https://bottom-sheet-manager.salimental.ir/docs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Salimental/bottom-sheet-manager.git"
+    "url": "git+https://github.com/Salimental/bottom-sheet-manager.git"
   },
   "bugs": {
     "url": "https://github.com/Salimental/bottom-sheet-manager/issues"
