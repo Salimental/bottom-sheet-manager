@@ -1,0 +1,1 @@
+import{G as e,W as t,n,rt as r}from"./chunks/framework.DdpGKlXJ.js";var i=JSON.parse(`{"title":"Practical Examples","description":"","frontmatter":{},"headers":[],"relativePath":"examples.md","filePath":"examples.md"}`),a={name:`examples.md`};function o(n,i,a,o,s,c){return r(),t(`div`,null,[...i[0]||=[e("",15)]])}var s=n(a,[[`render`,o]]);export{i as __pageData,s as default};
