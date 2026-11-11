@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BottomSheetManager & ScrollbarManager</title>
+    <!-- Vazirmatn Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+            --border-color: #334155;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #0f172a;
+            --text-muted: #64748b;
+            --primary: #0284c7;
+            --primary-hover: #02689d;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Vazirmatn', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        header {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lang-switcher {
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 99px;
+            padding: 4px;
+            gap: 4px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 99px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        main {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 3rem;
+            flex: 1;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.description {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        ul {
+            list-style-type: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0.75rem;
+        }
+
+        li {
+            background: rgba(125, 125, 125, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .links-grid {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .license-box {
+            background: rgba(239, 68, 68, 0.05);
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        [dir="rtl"] .license-box {
+            border-left: none;
+            border-right: 4px solid #ef4444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .card { padding: 1.5rem; }
+            h1 { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-text" style="font-weight: 700; font-size: 1.1rem;">Salimental</div>
+        <div class="lang-switcher">
+            <button class="lang-btn" onclick="switchLanguage('fa')">FA</button>
+            <button class="lang-btn active" onclick="switchLanguage('en')">EN</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="card">
+            <!-- English Content (Default) -->
+            <div id="content-en" class="lang-content active">
+                <h1>BottomSheetManager & ScrollbarManager</h1>
+                <p class="description">A lightweight, zero-dependency Vanilla JavaScript library for creating customizable bottom sheets and managing scrollbar behavior across desktop and mobile browsers.</p>
+                
+                <section>
+                    <h2>Features</h2>
+                    <ul>
+                        <li><strong>Zero Dependencies:</strong> Built with pure Vanilla JavaScript.</li>
+                        <li><strong>Touch & Mouse Support:</strong> Supports interactive drag gestures for touch and mouse input.</li>
+                        <li><strong>Configurable Snap Points:</strong> Configure bottom sheet heights and snapping behavior.</li>
+                        <li><strong>Scrollbar Shift Management:</strong> Helps prevent layout shifts when locking body scrolling.</li>
+                        <li><strong>TypeScript Support:</strong> Includes TypeScript declarations for IDE autocomplete and type checking.</li>
+                        <li><strong>Flexible Integration:</strong> Designed for integration into modern JavaScript projects and browser-based applications.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Demo & Documentation</h2>
+                    <div class="links-grid">
+                        <a href="https://bottom-sheet-manager.salimental.ir/demo/" class="btn" target="_blank">View Live Demo</a>
+                        <a href="https://bottom-sheet-manager.salimental.ir/docs" class="btn btn-outline" target="_blank">Documentation</a>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>License</h2>
+                    <div class="license-box">
+                        This project is distributed under a custom license. Free personal and commercial use is permitted subject to the terms in <a href="https://github.com/Salimental/bottom-sheet-manager/blob/main/LICENSE" target="_blank" style="color: var(--primary);">LICENSE</a>. Modification and redistribution are restricted. Please review the full license before using this software.
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Author</h2>
+                    <p style="color: var(--text-muted);">Salimental | Website: <a href="https://salimental.ir" target="_blank" style="color: var(--primary);">salimental.ir</a></p>
+                </section>
+            </div>
+
+            <!-- Persian Content -->
+            <div id="content-fa" class="lang-content">
+                <h1>BottomSheetManager & ScrollbarManager</h1>
+                <p class="description">کتابخانه‌ای سبک، مستقل و بدون وابستگی (Vanilla JavaScript) برای ساخت باتم‌شیت‌های قابل سفارشی‌سازی و مدیریت رفتار اسکرول‌بار در مرورگرهای دسکتاپ و موبایل.</p>
+                
+                <section>
+                    <h2>ویژگی‌ها</h2>
+                    <ul>
+                        <li><strong>بدون وابستگی:</strong> توسعه‌یافته با جاوااسکریپت خالص (Vanilla JS).</li>
+                        <li><strong>پشتیبانی از لمس و ماوس:</strong> پشتیبانی کامل از ژست‌های حرکتی و درگ برای لمس و ماوس.</li>
+                        <li><strong>نقاط چسبندگی قابل تنظیم (Snap Points):</strong> قابلیت تنظیم ارتفاع و رفتار اسنپ‌شدن باتم‌شیت.</li>
+                        <li><strong>مدیریت پرش اسکرول‌بار:</strong> جلوگیری از پرش و جابجایی صفحه هنگام قفل کردن اسکرول بدنه سایت.</li>
+                        <li><strong>پشتیبانی از تایپ‌اسکریپت:</strong> دارای فایل‌های اعلامیه نوع برای تکمیل خودکار و بررسی نوع در IDE.</li>
+                        <li><strong>یکپارچه‌سازی انعطاف‌پذیر:</strong> طراحی شده برای استفاده در پروژه‌های مدرن جاوااسکریپت و برنامه‌های وب.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>دمو و مستندات</h2>
+                    <div class="links-grid">
+                        <a href="https://bottom-sheet-manager.salimental.ir/demo/" class="btn" target="_blank">مشاهده دمو زنده</a>
+                        <a href="https://bottom-sheet-manager.salimental.ir/docs" class="btn btn-outline" target="_blank">مستندات رسمی</a>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>مجوز (License)</h2>
+                    <div class="license-box">
+                        این پروژه تحت یک مجوز سفارشی توزیع می‌شود. استفاده شخصی و تجاری رایگان با رعایت شرایط مندرج در فایل <a href="https://github.com/Salimental/bottom-sheet-manager/blob/main/LICENSE" target="_blank" style="color: var(--primary);">LICENSE</a> مجاز است. هرگونه تغییر و بازتوزیع محدود شده است. لطفاً پیش از استفاده، متن کامل مجوز را بررسی کنید.
+                    </div>
+                </section>
+
+                <section>
+                    <h2>نویسنده</h2>
+                    <p style="color: var(--text-muted);">Salimental | وب‌سایت: <a href="https://salimental.ir" target="_blank" style="color: var(--primary);">salimental.ir</a></p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Salimental. Released under Custom License.</p>
+    </footer>
+
+    <script>
+        function switchLanguage(lang) {
+            // Toggle active states on buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = Array.from(document.querySelectorAll('.lang-btn')).find(b => b.textContent.toLowerCase() === lang);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            // Toggle active content views
+            document.querySelectorAll('.lang-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const targetContent = document.getElementById(`content-${lang}`);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+
+            // Update html dir and lang attributes for proper text alignment
+            const htmlElement = document.documentElement;
+            if (lang === 'fa') {
+                htmlElement.setAttribute('lang', 'fa');
+                htmlElement.setAttribute('dir', 'rtl');
+            } else {
+                htmlElement.setAttribute('lang', 'en');
+                htmlElement.setAttribute('dir', 'ltr');
+            }
+
+            // Save preference to localStorage
+            localStorage.setItem('preferred_lang', lang);
+        }
+
+        // Check user previous preference on load, default to 'en'
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferred_lang') || 'en';
+            if (savedLang === 'fa' || savedLang === 'en') {
+                switchLanguage(savedLang);
+            }
+        });
+    </script>
+</body>
+</html>
